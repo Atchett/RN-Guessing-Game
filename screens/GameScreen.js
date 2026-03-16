@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import Title from "../components/UI/Title";
 import generateRandomNumberBetween from "../utils/randomNumber";
 import NumberContainer from "../components/Game/NumberContainer";
 import PrimaryButton from "../components/UI/PrimaryButton";
+import InstructionText from "../components/UI/InstructionText";
+import Card from "../components/UI/Card";
 
 let minBoundary = 1;
 let maxBoundary = 100;
@@ -46,20 +48,23 @@ const GameScreen = ({ userNumber, onGameOver }) => {
     <View style={styles.screen}>
       <Title>Opponent's Guess</Title>
       <NumberContainer>{currentGuess}</NumberContainer>
-      <View>
-        <Text>Higher or Lower?</Text>
-        <View>
-          <PrimaryButton onPress={() => nextGuessHandler("lower")}>
-            -
-          </PrimaryButton>
-          <PrimaryButton onPress={() => nextGuessHandler("higher")}>
-            +
-          </PrimaryButton>
+      <Card>
+        <InstructionText style={styles.instructionText}>
+          Higher or Lower?
+        </InstructionText>
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={() => nextGuessHandler("lower")}>
+              -
+            </PrimaryButton>
+          </View>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={() => nextGuessHandler("higher")}>
+              +
+            </PrimaryButton>
+          </View>
         </View>
-      </View>
-      <View>
-        <Text>Log rounds</Text>
-      </View>
+      </Card>
     </View>
   );
 };
@@ -70,5 +75,14 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 12,
+  },
+  instructionText: {
+    marginBottom: 12,
+  },
+  buttonsContainer: {
+    flexDirection: "row",
+  },
+  buttonContainer: {
+    flex: 1,
   },
 });
